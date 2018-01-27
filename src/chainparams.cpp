@@ -69,8 +69,8 @@ static Checkpoints::MapCheckpoints mapCheckpoints =
     (908000, uint256("202708f8c289b676fceb832a079ff6b308a28608339acbf7584de533619d014d"));
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
-    1510948627, // * UNIX timestamp of last checkpoint block
-    1842739,    // * total number of transactions between genesis and last checkpoint
+	1517070043, // * UNIX timestamp of last checkpoint block
+    0,    // * total number of transactions between genesis and last checkpoint
                 //   (the tx=... number in the SetBestChain debug.log lines)
     2000        // * estimated number of transactions per day after checkpoint
 };
@@ -152,7 +152,7 @@ public:
          *     CTxOut(nValue=50.00000000, scriptPubKey=0xA9037BAC7050C479B121CF)
          *   vMerkleTree: e0028e
          */
-        const char* pszTimestamp = "Le pic de crue de la Seine devrait être moins élevé qu’attendu En savoir plus sur http://www.lemonde.fr/climat/article/2018/01/27/le-pic-de-crue-de-la-seine-devrait-etre-moins-eleve-qu-attendu_5247922_1652612.html#to6Gc3Ui11ksMUxv.99";
+        const char* pszTimestamp = "Le pic de crue de la Seine devrait être moins élevé qu’attendu le monde 2018/01/27";
         CMutableTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
@@ -164,12 +164,12 @@ public:
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
         genesis.nVersion = 1;
         genesis.nTime = 1517052785;
-        genesis.nBits = 0x1e0ffff0;
-        genesis.nNonce = 74072315;
+        genesis.nBits = 0x00f62350;
+        genesis.nNonce = 74778095;
 
         hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("0x0000041e482b9b9691d98eefb48473405c0b8ec31b76df3797c74a78680ef818"));
-        assert(genesis.hashMerkleRoot == uint256("0x1b2ef6e2f28be914103a277377ae7729dcd125dfeb8bf97bd5964ba72b6dc39b"));
+        assert(hashGenesisBlock == uint256("0x47a273b43531016197d9e923cd1f90168e34872e81a597636d5dd6e34887e624"));
+        assert(genesis.hashMerkleRoot == uint256("0x48964159d9970d8dbc6de645561013cd7b6acf992f0c86f1cf34818e1b1c6a1c"));
 
         vSeeds.push_back(CDNSSeedData("barandos.com", "dns11.ovh.net"));     // Primary DNS Seeder from Fuzzbawls
         vSeeds.push_back(CDNSSeedData("barandos.com", "ns11.ovh.net"));
@@ -177,8 +177,8 @@ public:
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 30);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 13);
         base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 212);
-        base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x02)(0x2D)(0x25)(0x33).convert_to_container<std::vector<unsigned char> >();
-        base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x02)(0x21)(0x31)(0x2B).convert_to_container<std::vector<unsigned char> >();
+        base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x02)(0x2D)(0x25)(0x26).convert_to_container<std::vector<unsigned char> >();
+        base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x02)(0x21)(0x31)(0x26).convert_to_container<std::vector<unsigned char> >();
         // 	BIP44 coin type is from https://github.com/satoshilabs/slips/blob/master/slip-0044.md
         base58Prefixes[EXT_COIN_TYPE] = boost::assign::list_of(0x80)(0x00)(0x00)(0x77).convert_to_container<std::vector<unsigned char> >();
 
@@ -231,10 +231,10 @@ public:
     {
         networkID = CBaseChainParams::TESTNET;
         strNetworkID = "test";
-        pchMessageStart[0] = 0x45;
-        pchMessageStart[1] = 0x76;
-        pchMessageStart[2] = 0x65;
-        pchMessageStart[3] = 0xba;
+        pchMessageStart[0] = 0x4b;
+        pchMessageStart[1] = 0x86;
+        pchMessageStart[2] = 0x35;
+        pchMessageStart[3] = 0x5a;
         vAlertPubKey = ParseHex("000010e83b2703ccf322f7dbd62dd5855ac7c10bd055814ce121ba32607d573b8810c02c0582aed05b4deb9c4b77b26d92428c61256cd42774babea0a073b2ed0c9");
         nDefaultPort = 59255;
         nEnforceBlockUpgradeMajority = 51;
@@ -258,10 +258,10 @@ public:
 
         //! Modify the testnet genesis block so the timestamp is valid for a later start.
         genesis.nTime = 1454124731;
-        genesis.nNonce = 2402015;
+        genesis.nNonce = 2728869;
 
         hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("0x0000041e482b9b9691d98eefb48473405c0b8ec31b76df3797c74a78680ef818"));
+        assert(hashGenesisBlock == uint256("0x284c6fd47bd96def79adb68e4df483bec850273e932a3dcd699e88693c91f639"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
@@ -312,10 +312,10 @@ public:
         networkID = CBaseChainParams::REGTEST;
         strNetworkID = "regtest";
         strNetworkID = "regtest";
-        pchMessageStart[0] = 0xa1;
-        pchMessageStart[1] = 0xcf;
-        pchMessageStart[2] = 0x7e;
-        pchMessageStart[3] = 0xac;
+        pchMessageStart[0] = 0xa4;
+        pchMessageStart[1] = 0xc3;
+        pchMessageStart[2] = 0xfe;
+        pchMessageStart[3] = 0xa3;
         nSubsidyHalvingInterval = 150;
         nEnforceBlockUpgradeMajority = 750;
         nRejectBlockOutdatedMajority = 950;
@@ -326,11 +326,15 @@ public:
         bnProofOfWorkLimit = ~uint256(0) >> 1;
         genesis.nTime = 1454124731;
         genesis.nBits = 0x207fffff;
-        genesis.nNonce = 12345;
+        genesis.nNonce = 12646;
 
         hashGenesisBlock = genesis.GetHash();
-        nDefaultPort = 51476;
-        assert(hashGenesisBlock == uint256("0x4f023a2120d9127b21bbad01724fdb79b519f593f2a85b60d3d79160ec5f29df"));
+        printf("new mainnet genesis merkle root: %s\n", genesis.hashMerkleRoot.ToString().c_str());
+        printf("new mainnet genesis nonce: %i\n", genesis.nNonce);
+        printf("new mainnet genesis hash: %s\n", genesis.GetHash().ToString().c_str());
+
+        nDefaultPort = 59238;
+        assert(hashGenesisBlock == uint256("0x7376d9ba8f22ae7050266ffa0d141718b87fe6aa62e330d26084bd478320c95d"));
 
         vFixedSeeds.clear(); //! Testnet mode doesn't have any fixed seeds.
         vSeeds.clear();      //! Testnet mode doesn't have any DNS seeds.
