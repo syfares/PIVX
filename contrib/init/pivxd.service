@@ -1,19 +1,19 @@
 [Unit]
-Description=PIVX's distributed currency daemon
+Description=barandos's distributed currency daemon
 After=network.target
 
 [Service]
-User=pivx
-Group=pivx
+User=barandos
+Group=barandos
 
 Type=forking
-PIDFile=/var/lib/pivxd/pivxd.pid
+PIDFile=/var/lib/barandosd/barandosd.pid
 
-ExecStart=/usr/bin/pivxd -daemon -pid=/var/lib/pivxd/pivxd.pid \
-          -conf=/etc/pivx/pivx.conf -datadir=/var/lib/pivxd
+ExecStart=/usr/bin/barandosd -daemon -pid=/var/lib/barandosd/barandosd.pid \
+          -conf=/etc/barandos/barandos.conf -datadir=/var/lib/barandosd
 
-ExecStop=-/usr/bin/pivx-cli -conf=/etc/pivx/pivx.conf \
-         -datadir=/var/lib/pivxd stop
+ExecStop=-/usr/bin/barandos-cli -conf=/etc/barandos/barandos.conf \
+         -datadir=/var/lib/barandosd stop
 
 Restart=always
 PrivateTmp=true

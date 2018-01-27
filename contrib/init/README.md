@@ -1,10 +1,10 @@
 Sample configuration files for:
 
-SystemD: pivxd.service
-Upstart: pivxd.conf
-OpenRC:  pivxd.openrc
-         pivxd.openrcconf
-CentOS:  pivxd.init
+SystemD: barandosd.service
+Upstart: barandosd.conf
+OpenRC:  barandosd.openrc
+         barandosd.openrcconf
+CentOS:  barandosd.init
 
 have been made available to assist packagers in creating node packages here.
 

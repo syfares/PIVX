@@ -1,25 +1,25 @@
-# /etc/conf.d/pivxd: config file for /etc/init.d/pivxd
+# /etc/conf.d/barandosd: config file for /etc/init.d/barandosd
 
 # Config file location
-#BITCOIND_CONFIGFILE="/etc/pivx/pivx.conf"
+#BITCOIND_CONFIGFILE="/etc/barandos/barandos.conf"
 
 # What directory to write pidfile to?  (created and owned by $BITCOIND_USER)
-#BITCOIND_PIDDIR="/var/run/pivxd"
+#BITCOIND_PIDDIR="/var/run/barandosd"
 
 # What filename to give the pidfile
-#BITCOIND_PIDFILE="${BITCOIND_PIDDIR}/pivxd.pid"
+#BITCOIND_PIDFILE="${BITCOIND_PIDDIR}/barandosd.pid"
 
-# Where to write pivxd data (be mindful that the blockchain is large)
-#BITCOIND_DATADIR="/var/lib/pivxd"
+# Where to write barandosd data (be mindful that the blockchain is large)
+#BITCOIND_DATADIR="/var/lib/barandosd"
 
-# User and group to own pivxd process
-#BITCOIND_USER="pivx"
-#BITCOIND_GROUP="pivx"
+# User and group to own barandosd process
+#BITCOIND_USER="barandos"
+#BITCOIND_GROUP="barandos"
 
-# Path to pivxd executable
-#BITCOIND_BIN="/usr/bin/pivxd"
+# Path to barandosd executable
+#BITCOIND_BIN="/usr/bin/barandosd"
 
-# Nice value to run pivxd under
+# Nice value to run barandosd under
 #BITCOIND_NICE=0
 
 # Additional options (avoid -conf and -datadir, use flags above)

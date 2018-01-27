@@ -1,2 +1,2 @@
-usr/local/bin/pivxd usr/bin
-usr/local/bin/pivx-cli usr/bin
+usr/local/bin/barandosd usr/bin
+usr/local/bin/barandos-cli usr/bin

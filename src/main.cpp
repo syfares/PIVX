@@ -1,12 +1,12 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2017 The PIVX developers
+// Copyright (c) 2015-2017 The barandos developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "main.h"
-
+ 
 #include "accumulators.h"
 #include "addrman.h"
 #include "alert.h"
@@ -47,7 +47,7 @@ using namespace std;
 using namespace libzerocoin;
 
 #if defined(NDEBUG)
-#error "PIVX cannot be compiled without assertions."
+#error "Barandos cannot be compiled without assertions."
 #endif
 
 // 6 comes from OPCODE (1) + vch.size() (1) + BIGNUM size (4)
@@ -82,8 +82,8 @@ bool fAlerts = DEFAULT_ALERTS;
 unsigned int nStakeMinAge = 60 * 60;
 int64_t nReserveBalance = 0;
 
-/** Fees smaller than this (in upiv) are considered zero fee (for relaying and mining)
- * We are ~100 times smaller then bitcoin now (2015-06-23), set minRelayTxFee only 10 times higher
+/** Fees smaller than this are considered zero fee (for relaying and mining)
+ * We are ~100 times smaller then bitcoin now set minRelayTxFee only 10 times higher
  * so it's still 10 times lower comparing to bitcoin.
  */
 CFeeRate minRelayTxFee = CFeeRate(10000);
@@ -2182,33 +2182,35 @@ int64_t GetBlockValue(int nHeight)
     }
 
     if (nHeight == 0) {
-        nSubsidy = 60001 * COIN;
-    } else if (nHeight < 86400 && nHeight > 0) {
-        nSubsidy = 250 * COIN;
+        nSubsidy = 50001 * COIN;
+    } else if (nHeight <= 30000 && nHeight > 0) {
+        nSubsidy = 20 * COIN;
     } else if (nHeight < (Params().NetworkID() == CBaseChainParams::TESTNET ? 145000 : 151200) && nHeight >= 86400) {
-        nSubsidy = 225 * COIN;
-    } else if (nHeight <= Params().LAST_POW_BLOCK() && nHeight >= 151200) {
-        nSubsidy = 45 * COIN;
-    } else if (nHeight <= 302399 && nHeight > Params().LAST_POW_BLOCK()) {
-        nSubsidy = 45 * COIN;
-    } else if (nHeight <= 345599 && nHeight >= 302400) {
-        nSubsidy = 40.5 * COIN;
-    } else if (nHeight <= 388799 && nHeight >= 345600) {
-        nSubsidy = 36 * COIN;
-    } else if (nHeight <= 431999 && nHeight >= 388800) {
-        nSubsidy = 31.5 * COIN;
-    } else if (nHeight <= 475199 && nHeight >= 432000) {
-        nSubsidy = 27 * COIN;
-    } else if (nHeight <= 518399 && nHeight >= 475200) {
-        nSubsidy = 22.5 * COIN;
-    } else if (nHeight <= 561599 && nHeight >= 518400) {
-        nSubsidy = 18 * COIN;
-    } else if (nHeight <= 604799 && nHeight >= 561600) {
-        nSubsidy = 13.5 * COIN;
-    } else if (nHeight <= 647999 && nHeight >= 604800) {
-        nSubsidy = 9 * COIN;
-    } else if (nHeight >= 648000) {
+        nSubsidy = 20 * COIN;
+    } else if (nHeight <= 100000 && nHeight > 30000) {
+        nSubsidy = 10 * COIN;
+    } else if (nHeight <= Params().LAST_POW_BLOCK() && nHeight > 100000) {
+        nSubsidy = 5 * COIN;
+    } else if (nHeight <= 200000 && nHeight > Params().LAST_POW_BLOCK()) {
+        nSubsidy = 5 * COIN;
+    } else if (nHeight <= 300000 && nHeight > 200000) {
         nSubsidy = 4.5 * COIN;
+    } else if (nHeight <= 400000 && nHeight > 300000) {
+        nSubsidy = 4 * COIN;
+    } else if (nHeight <= 500000 && nHeight > 400000) {
+        nSubsidy = 3.5 * COIN;
+    } else if (nHeight <= 600000 && nHeight > 500000) {
+        nSubsidy = 3 * COIN;
+    } else if (nHeight <= 700000 && nHeight > 600000) {
+        nSubsidy = 2.5 * COIN;
+    } else if (nHeight <= 800000 && nHeight > 700000) {
+        nSubsidy = 2 * COIN;
+    } else if (nHeight <= 900000 && nHeight > 800000) {
+        nSubsidy = 1.5 * COIN;
+    } else if (nHeight <= 1000000 && nHeight > 900000) {
+        nSubsidy = 1.25 * COIN;
+    } else if (nHeight >= 1000001) {
+        nSubsidy = 1 * COIN;
     } else {
         nSubsidy = 0 * COIN;
     }
@@ -2224,13 +2226,13 @@ int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCou
             return 0;
     }
 
-    if (nHeight <= 43200) {
+    if (nHeight <= 30000) {
         ret = blockValue / 5;
-    } else if (nHeight < 86400 && nHeight > 43200) {
-        ret = blockValue / (100 / 30);
+    } else if (nHeight < 100000 && nHeight > 30000) {
+        ret = blockValue / (10 / 3);
     } else if (nHeight < (Params().NetworkID() == CBaseChainParams::TESTNET ? 145000 : 151200) && nHeight >= 86400) {
-        ret = 50 * COIN;
-    } else if (nHeight <= Params().LAST_POW_BLOCK() && nHeight >= 151200) {
+        ret = 20 * COIN;
+    } else if (nHeight <= Params().LAST_POW_BLOCK() && nHeight >= 100000) {
         ret = blockValue / 2;
     } else if (nHeight > Params().LAST_POW_BLOCK()) {
         int64_t nMoneySupply = chainActive.Tip()->nMoneySupply;
@@ -2243,7 +2245,7 @@ int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCou
                 nMasternodeCount = mnodeman.size();
         }
 
-        int64_t mNodeCoins = nMasternodeCount * 10000 * COIN;
+        int64_t mNodeCoins = nMasternodeCount * 5000 * COIN;
 
         // Use this log to compare the masternode count for different clients
         LogPrintf("Adjusting seesaw at height %d with %d masternodes (without drift: %d) at %ld\n", nHeight, nMasternodeCount, nMasternodeCount - Params().MasternodeCountDrift(), GetTime());
@@ -2254,41 +2256,7 @@ int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCou
 
         if (mNodeCoins == 0) {
             ret = 0;
-        } else if (nHeight <= 325000) {
-            if (mNodeCoins <= (nMoneySupply * .05) && mNodeCoins > 0) {
-                ret = blockValue * .85;
-            } else if (mNodeCoins <= (nMoneySupply * .1) && mNodeCoins > (nMoneySupply * .05)) {
-                ret = blockValue * .8;
-            } else if (mNodeCoins <= (nMoneySupply * .15) && mNodeCoins > (nMoneySupply * .1)) {
-                ret = blockValue * .75;
-            } else if (mNodeCoins <= (nMoneySupply * .2) && mNodeCoins > (nMoneySupply * .15)) {
-                ret = blockValue * .7;
-            } else if (mNodeCoins <= (nMoneySupply * .25) && mNodeCoins > (nMoneySupply * .2)) {
-                ret = blockValue * .65;
-            } else if (mNodeCoins <= (nMoneySupply * .3) && mNodeCoins > (nMoneySupply * .25)) {
-                ret = blockValue * .6;
-            } else if (mNodeCoins <= (nMoneySupply * .35) && mNodeCoins > (nMoneySupply * .3)) {
-                ret = blockValue * .55;
-            } else if (mNodeCoins <= (nMoneySupply * .4) && mNodeCoins > (nMoneySupply * .35)) {
-                ret = blockValue * .5;
-            } else if (mNodeCoins <= (nMoneySupply * .45) && mNodeCoins > (nMoneySupply * .4)) {
-                ret = blockValue * .45;
-            } else if (mNodeCoins <= (nMoneySupply * .5) && mNodeCoins > (nMoneySupply * .45)) {
-                ret = blockValue * .4;
-            } else if (mNodeCoins <= (nMoneySupply * .55) && mNodeCoins > (nMoneySupply * .5)) {
-                ret = blockValue * .35;
-            } else if (mNodeCoins <= (nMoneySupply * .6) && mNodeCoins > (nMoneySupply * .55)) {
-                ret = blockValue * .3;
-            } else if (mNodeCoins <= (nMoneySupply * .65) && mNodeCoins > (nMoneySupply * .6)) {
-                ret = blockValue * .25;
-            } else if (mNodeCoins <= (nMoneySupply * .7) && mNodeCoins > (nMoneySupply * .65)) {
-                ret = blockValue * .2;
-            } else if (mNodeCoins <= (nMoneySupply * .75) && mNodeCoins > (nMoneySupply * .7)) {
-                ret = blockValue * .15;
-            } else {
-                ret = blockValue * .1;
-            }
-        } else if (nHeight > 325000) {
+        }
             if (mNodeCoins <= (nMoneySupply * .01) && mNodeCoins > 0) {
                 ret = blockValue * .90;
             } else if (mNodeCoins <= (nMoneySupply * .02) && mNodeCoins > (nMoneySupply * .01)) {
@@ -2462,7 +2430,6 @@ int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCou
             } else {
                 ret = blockValue * .01;
             }
-        }
     }
 
     return ret;
@@ -2930,7 +2897,7 @@ bool DisconnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex
         const CTransaction& tx = block.vtx[i];
 
         /** UNDO ZEROCOIN DATABASING
-         * note we only undo zerocoin databasing in the following statement, value to and from PIVX
+         * note we only undo zerocoin databasing in the following statement, value to and from barandos
          * addresses should still be handled by the typical bitcoin based undo code
          * */
         if (tx.ContainsZerocoins()) {
@@ -3063,11 +3030,11 @@ static CCheckQueue<CScriptCheck> scriptcheckqueue(128);
 
 void ThreadScriptCheck()
 {
-    RenameThread("pivx-scriptch");
+    RenameThread("barandos-scriptch");
     scriptcheckqueue.Thread();
 }
 
-void RecalculateZPIVMinted()
+void RecalculateZBARAMinted()
 {
     CBlockIndex *pindex = chainActive[Params().Zerocoin_StartHeight()];
     int nHeightEnd = chainActive.Height();
@@ -3094,14 +3061,14 @@ void RecalculateZPIVMinted()
     }
 }
 
-void RecalculateZPIVSpent()
+void RecalculateZBARASpent()
 {
     CBlockIndex* pindex = chainActive[Params().Zerocoin_StartHeight()];
     while (true) {
         if (pindex->nHeight % 1000 == 0)
             LogPrintf("%s : block %d...\n", __func__, pindex->nHeight);
 
-        //Rewrite zPIV supply
+        //Rewrite zBARA supply
         CBlock block;
         assert(ReadBlockFromDisk(block, pindex));
 
@@ -3110,13 +3077,13 @@ void RecalculateZPIVSpent()
         //Reset the supply to previous block
         pindex->mapZerocoinSupply = pindex->pprev->mapZerocoinSupply;
 
-        //Add mints to zPIV supply
+        //Add mints to zBARA supply
         for (auto denom : libzerocoin::zerocoinDenomList) {
             long nDenomAdded = count(pindex->vMintDenominationsInBlock.begin(), pindex->vMintDenominationsInBlock.end(), denom);
             pindex->mapZerocoinSupply.at(denom) += nDenomAdded;
         }
 
-        //Remove spends from zPIV supply
+        //Remove spends from zBARA supply
         for (auto denom : listDenomsSpent)
             pindex->mapZerocoinSupply.at(denom)--;
 
@@ -3130,7 +3097,7 @@ void RecalculateZPIVSpent()
     }
 }
 
-bool RecalculatePIVSupply(int nHeightStart)
+bool RecalculateBARASupply(int nHeightStart)
 {
     if (nHeightStart > chainActive.Height())
         return false;
@@ -3203,7 +3170,7 @@ bool RecalculatePIVSupply(int nHeightStart)
 
 bool ReindexAccumulators(list<uint256>& listMissingCheckpoints, string& strError)
 {
-    // PIVX: recalculate Accumulator Checkpoints that failed to database properly
+    // barandos: recalculate Accumulator Checkpoints that failed to database properly
     if (!listMissingCheckpoints.empty() && chainActive.Height() >= Params().Zerocoin_StartHeight()) {
         //uiInterface.InitMessage(_("Calculating missing accumulators..."));
         LogPrintf("%s : finding missing checkpoints\n", __func__);
@@ -3444,9 +3411,9 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     std::list<libzerocoin::CoinDenomination> listSpends = ZerocoinSpendListFromBlock(block, fFilterInvalid);
 
     if (pindex->nHeight == Params().Zerocoin_Block_RecalculateAccumulators() + 1) {
-        RecalculateZPIVMinted();
-        RecalculateZPIVSpent();
-        RecalculatePIVSupply(Params().Zerocoin_StartHeight());
+        RecalculateZBARAMinted();
+        RecalculateZBARASpent();
+        RecalculateBARASupply(Params().Zerocoin_StartHeight());
     }
 
     // Initialize zerocoin supply to the supply from previous block
@@ -3676,7 +3643,7 @@ void static UpdateTip(CBlockIndex* pindexNew)
 {
     chainActive.SetTip(pindexNew);
 
-    // If turned on AutoZeromint will automatically convert PIV to zPIV
+    // If turned on AutoZeromint will automatically convert BARA to zBARA
     if (pwalletMain->isZeromintEnabled ())
         pwalletMain->AutoZeromint ();
 
@@ -4507,7 +4474,7 @@ bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW, bo
                 nHeight = (*mi).second->nHeight + 1;
         }
 
-        // PIVX
+        // barandos
         // It is entierly possible that we don't have enough data and this could fail
         // (i.e. the block could indeed be valid). Store the block for later consideration
         // but issue an initial reject message.
@@ -6010,7 +5977,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             return false;
         }
 
-        // PIVX: We use certain sporks during IBD, so check to see if they are
+        // barandos: We use certain sporks during IBD, so check to see if they are
         // available. If not, ask the first peer connected for them.
         bool fMissingSporks = !pSporkDB->SporkExists(SPORK_14_NEW_PROTOCOL_ENFORCEMENT) &&
                 !pSporkDB->SporkExists(SPORK_15_NEW_PROTOCOL_ENFORCEMENT_2) &&
