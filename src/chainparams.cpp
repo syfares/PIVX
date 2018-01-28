@@ -162,13 +162,17 @@ public:
         genesis.vtx.push_back(txNew);
         genesis.hashPrevBlock = 0;
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
-        genesis.nVersion = 1;
+        genesis.nVersion = 4;
         genesis.nTime = 1517052785;
-        genesis.nBits = 0x00f62350;
+        genesis.nBits = 0x00ffffff;
         genesis.nNonce = 74778095;
 
         hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("0x47a273b43531016197d9e923cd1f90168e34872e81a597636d5dd6e34887e624"));
+        printf("new mainnet genesis merkle root: %s\n", genesis.hashMerkleRoot.ToString().c_str());
+        printf("new mainnet genesis nonce: %i\n", genesis.nNonce);
+        printf("new mainnet genesis hash: %s\n", genesis.GetHash().ToString().c_str());
+
+        assert(hashGenesisBlock == uint256("0x5960c2dd4da5b4d9b84605815e06169f3e34c0373656eda92d5c71fd5a642cd1"));
         assert(genesis.hashMerkleRoot == uint256("0x48964159d9970d8dbc6de645561013cd7b6acf992f0c86f1cf34818e1b1c6a1c"));
 
         vSeeds.push_back(CDNSSeedData("barandos.com", "dns11.ovh.net"));     // Primary DNS Seeder from Fuzzbawls
@@ -261,7 +265,8 @@ public:
         genesis.nNonce = 2728869;
 
         hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("0x284c6fd47bd96def79adb68e4df483bec850273e932a3dcd699e88693c91f639"));
+
+        assert(hashGenesisBlock == uint256("0x4fb419c39f3f26708f39f1ba90549bfc24900b4b69b2184a0e71f02b048b4bfe"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
@@ -329,12 +334,9 @@ public:
         genesis.nNonce = 12646;
 
         hashGenesisBlock = genesis.GetHash();
-        printf("new mainnet genesis merkle root: %s\n", genesis.hashMerkleRoot.ToString().c_str());
-        printf("new mainnet genesis nonce: %i\n", genesis.nNonce);
-        printf("new mainnet genesis hash: %s\n", genesis.GetHash().ToString().c_str());
 
         nDefaultPort = 59238;
-        assert(hashGenesisBlock == uint256("0x7376d9ba8f22ae7050266ffa0d141718b87fe6aa62e330d26084bd478320c95d"));
+        assert(hashGenesisBlock == uint256("0xc1057282293b878a578cace78bdd7feffc323b23f91ed869efe44f71eb7a4593"));
 
         vFixedSeeds.clear(); //! Testnet mode doesn't have any fixed seeds.
         vSeeds.clear();      //! Testnet mode doesn't have any DNS seeds.
