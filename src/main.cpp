@@ -1456,17 +1456,15 @@ bool CheckTransaction(const CTransaction& tx, bool fZerocoinActive, bool fReject
     if (::GetSerializeSize(tx, SER_NETWORK, PROTOCOL_VERSION) > nMaxSize)
         return state.DoS(100, error("CheckTransaction() : size limits failed"),
             REJECT_INVALID, "bad-txns-oversize");
-
     // Check for negative or overflow output values
     CAmount nValueOut = 0;
     int nZCSpendCount = 0;
     BOOST_FOREACH (const CTxOut& txout, tx.vout) {
         if (txout.IsEmpty() && !tx.IsCoinBase() && !tx.IsCoinStake())
             return state.DoS(100, error("CheckTransaction(): txout empty for user transaction"));
-
-        if (txout.nValue < 0)
+        /*if (txout.nValue < 0)
             return state.DoS(100, error("CheckTransaction() : txout.nValue negative"),
-                REJECT_INVALID, "bad-txns-vout-negative");
+                REJECT_INVALID, "bad-txns-vout-negative");*/
         if (txout.nValue > Params().MaxMoneyOut())
             return state.DoS(100, error("CheckTransaction() : txout.nValue too high"),
                 REJECT_INVALID, "bad-txns-vout-toolarge");
@@ -2180,7 +2178,6 @@ int64_t GetBlockValue(int nHeight)
         if (nHeight < 200 && nHeight > 0)
             return 250000 * COIN;
     }
-
     if (nHeight == 0) {
         nSubsidy = 50001 * COIN;
     } else if (nHeight <= 30000 && nHeight > 0) {
@@ -4365,8 +4362,6 @@ bool CheckBlockHeader(const CBlockHeader& block, CValidationState& state, bool f
 
 	    // Version 4 header must be used after Params().Zerocoin_StartHeight(). And never before.
 	    if (block.GetBlockTime() > Params().Zerocoin_StartTime()) {
-	    		printf("blocknversion %i",block.nVersion );
-	    		printf("zeroheader %i",Params().Zerocoin_HeaderVersion());
 	        if(block.nVersion < Params().Zerocoin_HeaderVersion())
 	            return state.DoS(50, error("CheckBlockHeader() : block version must be above 4 after ZerocoinStartHeight"),
 	            REJECT_INVALID, "block-version");

@@ -53,7 +53,7 @@ static void convertSeed6(std::vector<CAddress>& vSeedsOut, const SeedSpec6* data
 // + Contains no strange transactions
 static Checkpoints::MapCheckpoints mapCheckpoints =
     boost::assign::map_list_of
-	( 0, uint256("0x000002514cc43edc892a532ec53f7bdd05237f0238fef5e6abd6fdf258d14bd5"));
+	( 0, uint256("0x00000cd90af71c6207d4e0ed0d6e07d47fe509f0f66e18d77e9c9afd88a547cb"));
 
 	static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
@@ -64,7 +64,7 @@ static Checkpoints::MapCheckpoints mapCheckpoints =
 };
 
 static Checkpoints::MapCheckpoints mapCheckpointsTestnet =
-    boost::assign::map_list_of(0, uint256("0x0000071e46285d9c1a667388f26137616e6d520d49a2ec9a7d28af7b860bc859"));
+    boost::assign::map_list_of(0, uint256("0x00000eea84b3c023b3ad56d206b8f9a57a743062c55913448248cbfd2e749dfe"));
 static const Checkpoints::CCheckpointData dataTestnet = {
     &mapCheckpointsTestnet,
     1740710,
@@ -112,7 +112,7 @@ public:
         nEnforceBlockUpgradeMajority = 750;
         nRejectBlockOutdatedMajority = 950;
         nToCheckBlockUpgradeMajority = 1000;
-        nMinerThreads = 0;
+        nMinerThreads = 1;
         nTargetTimespan = 1 * 60; // barandos: 1 day
         nTargetSpacing = 1 * 60;  // barandos: 1 minute
         nMaturity = 100;
@@ -121,14 +121,14 @@ public:
 
         /** Height or Time Based Activations **/
         nLastPOWBlock = 150000;
-        nModifierUpdateBlock = 1;
-        nZerocoinStartHeight = 1;
-        nZerocoinStartTime = 1508214600; // October 17, 2017 4:30:00 AM
-        nBlockEnforceSerialRange = 1; //Enforce serial range starting this block
-        nBlockRecalculateAccumulators = 1; //Trigger a recalculation of accumulators
-        nBlockFirstFraudulent = 1; //First block that bad serials emerged
-        nBlockLastGoodCheckpoint = 1; //Last valid accumulator checkpoint
-        nBlockEnforceInvalidUTXO = 1; //Start enforcing the invalid UTXO's
+        nModifierUpdateBlock = 2;
+        nZerocoinStartHeight = 2;
+        nZerocoinStartTime = 2508214600; // October 17, 2017 4:30:00 AM
+        nBlockEnforceSerialRange = 2; //Enforce serial range starting this block
+        nBlockRecalculateAccumulators = 2; //Trigger a recalculation of accumulators
+        nBlockFirstFraudulent = 2; //First block that bad serials emerged
+        nBlockLastGoodCheckpoint = 0; //Last valid accumulator checkpoint
+        nBlockEnforceInvalidUTXO = 2; //Start enforcing the invalid UTXO's
 
         /**
          * Build the genesis block. Note that the output of the genesis coinbase cannot
@@ -153,9 +153,9 @@ public:
         genesis.nVersion = 4;
         genesis.nTime = 1517052785;
         genesis.nBits = 0x1e0ffff0;
-        genesis.nNonce = 78521762;
-        hashGenesisBlock = uint256("0x000002514cc43edc892a532ec53f7bdd05237f0238fef5e6abd6fdf258d14bd5");
-        if (false && genesis.GetHash() != hashGenesisBlock)
+        genesis.nNonce = 80169818;
+        hashGenesisBlock = uint256("0x00000eea84b3c023b3ad56d206b8f9a57a743062c55913448248cbfd2e749dfe");
+        if (true && genesis.GetHash() != hashGenesisBlock)
                 {
                     printf("recalculating params for mainnet.\n");
                     printf("old mainnet genesis nonce: %i\n", genesis.nNonce);
@@ -166,12 +166,12 @@ public:
                     printf("new mainnet genesis nonce: %i\n", genesis.nNonce);
                     printf("new mainnet genesis hash: %s\n", genesis.GetHash().ToString().c_str());
                 }
-        //hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("0x000002514cc43edc892a532ec53f7bdd05237f0238fef5e6abd6fdf258d14bd5"));
+        hashGenesisBlock = genesis.GetHash();
+        assert(hashGenesisBlock == uint256("0x00000eea84b3c023b3ad56d206b8f9a57a743062c55913448248cbfd2e749dfe"));
         assert(genesis.hashMerkleRoot == uint256("0x3de8bad7b048cab5cb21c5a8e517b99e72e15a130f2a8378c9035ed37a80b3ca"));
 
-        vSeeds.push_back(CDNSSeedData("barandos.com", "dns11.ovh.net"));
-        vSeeds.push_back(CDNSSeedData("barandos.com", "ns11.ovh.net"));
+        //vSeeds.push_back(CDNSSeedData("barandos.com", "dns11.ovh.net"));
+        //vSeeds.push_back(CDNSSeedData("barandos.com", "ns11.ovh.net"));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 30);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 13);
@@ -183,14 +183,14 @@ public:
 
         convertSeed6(vFixedSeeds, pnSeed6_main, ARRAYLEN(pnSeed6_main));
 
-        fMiningRequiresPeers = true;
+        fMiningRequiresPeers = false;
         fAllowMinDifficultyBlocks = false;
-        fDefaultConsistencyChecks = false;
+        fDefaultConsistencyChecks = true;
         fRequireStandard = true;
         fMineBlocksOnDemand = false;
-        fSkipProofOfWorkCheck = false;
+        fSkipProofOfWorkCheck = true;
         fTestnetToBeDeprecatedFieldRPC = false;
-        fHeadersFirstSyncingActive = false;
+        fHeadersFirstSyncingActive = true;
 
         nPoolMaxTransactions = 3;
         strSporkKey = "04B433E6598390C992F4F022F20D3B4CBBE691652EE7C48243B81701CBDB7CC7D7BF0EE09E154E6FCBF2043D65AF4E9E97B89B5DBAF830D83B9B7F469A6C45A717";
@@ -239,27 +239,27 @@ public:
         nEnforceBlockUpgradeMajority = 51;
         nRejectBlockOutdatedMajority = 75;
         nToCheckBlockUpgradeMajority = 100;
-        nMinerThreads = 0;
+        nMinerThreads = 1;
         nTargetTimespan = 1 * 60; // BARA: 1 day
         nTargetSpacing = 1 * 60;  // BARA: 1 minute
-        nLastPOWBlock = 200;
+        nLastPOWBlock = 150000;
         nMaturity = 15;
         nMasternodeCountDrift = 4;
-        nModifierUpdateBlock = 1; //approx Mon, 17 Apr 2017 04:00:00 GMT
+        nModifierUpdateBlock = 2; //approx Mon, 17 Apr 2017 04:00:00 GMT
         nMaxMoneyOut = 43199500 * COIN;
         nZerocoinStartHeight = 1;
-        nZerocoinStartTime = 1501776000;
-        nBlockEnforceSerialRange = 1; //Enforce serial range starting this block
-        nBlockRecalculateAccumulators = 1; //Trigger a recalculation of accumulators
-        nBlockFirstFraudulent = 1; //First block that bad serials emerged
-        nBlockLastGoodCheckpoint = 1; //Last valid accumulator checkpoint
-        nBlockEnforceInvalidUTXO = 1; //Start enforcing the invalid UTXO's
+        nZerocoinStartTime = 5501776000;
+        nBlockEnforceSerialRange = 2; //Enforce serial range starting this block
+        nBlockRecalculateAccumulators = 2; //Trigger a recalculation of accumulators
+        nBlockFirstFraudulent = 2; //First block that bad serials emerged
+        nBlockLastGoodCheckpoint = 2; //Last valid accumulator checkpoint
+        nBlockEnforceInvalidUTXO = 2; //Start enforcing the invalid UTXO's
 
         //! Modify the testnet genesis block so the timestamp is valid for a later start.
         genesis.nTime = 1454124731;
         genesis.nNonce = 6821351;
         hashGenesisBlock = uint256("0x000004770cf013ad6097625f67aee62ed089744dd9cb6da2564f03f45f4699a7");
-                if (false && genesis.GetHash() != hashGenesisBlock)
+                if (true && genesis.GetHash() != hashGenesisBlock)
                         {
                             printf("recalculating params for test.\n");
                             printf("old test genesis nonce: %i\n", genesis.nNonce);
@@ -291,7 +291,7 @@ public:
 
         convertSeed6(vFixedSeeds, pnSeed6_test, ARRAYLEN(pnSeed6_test));
 
-        fMiningRequiresPeers = true;
+        fMiningRequiresPeers = false;
         fAllowMinDifficultyBlocks = true;
         fDefaultConsistencyChecks = false;
         fRequireStandard = false;
@@ -336,24 +336,24 @@ public:
         nTargetSpacing = 1 * 60;        // barandos: 1 minutes
         bnProofOfWorkLimit = ~uint256(0) >> 1;
         genesis.nTime = 1454124731;
-        genesis.nBits = 0x207fffff;
+        genesis.nBits = 0x1e0ffff0;
         genesis.nNonce = 12646;
-        hashGenesisBlock = uint256("0x11942d63a6c7f0dbbb254b6eb6ae75f73c61268d6e368dbec92657eb920f950f");
-                        if (false && genesis.GetHash() != hashGenesisBlock)
+        hashGenesisBlock = uint256("0x3d1abf79f9e19a5765ab8a4059a26e36e34df3e4a17fcd462df502065dd03dca");
+                        if (true && genesis.GetHash() != hashGenesisBlock)
                                 {
                                     printf("recalculating params for test.\n");
-                                    printf("old test genesis nonce: %i\n", genesis.nNonce);
-                                    printf("old test genesis hash:  %s\n", hashGenesisBlock.ToString().c_str());
+                                    printf("old regtest genesis nonce: %i\n", genesis.nNonce);
+                                    printf("old regtest genesis hash:  %s\n", hashGenesisBlock.ToString().c_str());
                                     // deliberately empty for loop finds nonce value.
                                     for(genesis.nNonce == 0; genesis.GetHash() > bnProofOfWorkLimit; genesis.nNonce++){ }
-                                    printf("new test genesis merkle root: %s\n", genesis.hashMerkleRoot.ToString().c_str());
-                                    printf("new test genesis nonce: %i\n", genesis.nNonce);
-                                    printf("new test genesis hash: %s\n", genesis.GetHash().ToString().c_str());
+                                    printf("new regtest genesis merkle root: %s\n", genesis.hashMerkleRoot.ToString().c_str());
+                                    printf("new regtest genesis nonce: %i\n", genesis.nNonce);
+                                    printf("new regtest genesis hash: %s\n", genesis.GetHash().ToString().c_str());
                                 }
         hashGenesisBlock = genesis.GetHash();
 
         nDefaultPort = 59238;
-        assert(hashGenesisBlock == uint256("0x11942d63a6c7f0dbbb254b6eb6ae75f73c61268d6e368dbec92657eb920f950f"));
+        assert(hashGenesisBlock == uint256("0x3d1abf79f9e19a5765ab8a4059a26e36e34df3e4a17fcd462df502065dd03dca"));
 
         vFixedSeeds.clear(); //! Testnet mode doesn't have any fixed seeds.
         vSeeds.clear();      //! Testnet mode doesn't have any DNS seeds.
