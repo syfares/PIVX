@@ -1462,9 +1462,9 @@ bool CheckTransaction(const CTransaction& tx, bool fZerocoinActive, bool fReject
     BOOST_FOREACH (const CTxOut& txout, tx.vout) {
         if (txout.IsEmpty() && !tx.IsCoinBase() && !tx.IsCoinStake())
             return state.DoS(100, error("CheckTransaction(): txout empty for user transaction"));
-        /*if (txout.nValue < 0)
+        if (txout.nValue < 0)
             return state.DoS(100, error("CheckTransaction() : txout.nValue negative"),
-                REJECT_INVALID, "bad-txns-vout-negative");*/
+                REJECT_INVALID, "bad-txns-vout-negative");
         if (txout.nValue > Params().MaxMoneyOut())
             return state.DoS(100, error("CheckTransaction() : txout.nValue too high"),
                 REJECT_INVALID, "bad-txns-vout-toolarge");
@@ -2173,13 +2173,13 @@ double ConvertBitsToDouble(unsigned int nBits)
 int64_t GetBlockValue(int nHeight)
 {
     int64_t nSubsidy = 0;
-
+    LogPrintf("nHeight : %i\n",nHeight);
     if (Params().NetworkID() == CBaseChainParams::TESTNET) {
         if (nHeight < 200 && nHeight > 0)
             return 250000 * COIN;
     }
     if (nHeight == 0) {
-        nSubsidy = 50001 * COIN;
+        nSubsidy = 50000 * COIN;
     } else if (nHeight <= 30000 && nHeight > 0) {
         nSubsidy = 20 * COIN;
     } else if (nHeight < (Params().NetworkID() == CBaseChainParams::TESTNET ? 145000 : 151200) && nHeight >= 86400) {
@@ -2211,6 +2211,7 @@ int64_t GetBlockValue(int nHeight)
     } else {
         nSubsidy = 0 * COIN;
     }
+    LogPrintf("nSubsidy : %i\n",nSubsidy);
     return nSubsidy;
 }
 
@@ -3464,7 +3465,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     CAmount nExpectedMint = GetBlockValue(pindex->pprev->nHeight);
     if (block.IsProofOfWork())
         nExpectedMint += nFees;
-
+    LogPrintf("nExpectedMint: %i", nExpectedMint);
     if (!IsBlockValueValid(block, nExpectedMint, pindex->nMint)) {
         return state.DoS(100,
             error("ConnectBlock() : reward pays too much (actual=%s vs limit=%s)",
@@ -4936,6 +4937,7 @@ bool TestBlockValidity(CValidationState& state, const CBlock& block, CBlockIndex
     // NOTE: CheckBlockHeader is called by CheckBlock
     if (!ContextualCheckBlockHeader(block, state, pindexPrev))
         return false;
+    LogPrintf("block.vtx[0].vin[0].scriptSig.size() :%i",block.vtx[0].vin[0].scriptSig.size());
     if (!CheckBlock(block, state, fCheckPOW, fCheckMerkleRoot))
         return false;
     if (!ContextualCheckBlock(block, state, pindexPrev))

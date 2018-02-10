@@ -330,6 +330,15 @@ void CMasternodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_t nFe
 
         LogPrint("masternode","Masternode payment of %s to %s\n", FormatMoney(masternodePayment).c_str(), address2.ToString().c_str());
     }
+    else {
+    	/* pure POW for first blocks */
+    		txNew.vin.resize(1);
+    		txNew.vin[0].prevout.SetNull();
+    		txNew.vout.resize(1);
+    		//txNew.vout[0].scriptPubKey = scriptPubKeyIn;
+    		txNew.vout[0].nValue = blockValue;
+    		txNew.vin[0].scriptSig = CScript() << pindexPrev->nHeight +1 << OP_0;
+    }
 }
 
 int CMasternodePayments::GetMinMasternodePaymentsProto()
@@ -521,6 +530,7 @@ bool CMasternodeBlockPayees::IsTransactionValid(const CTransaction& txNew)
     std::string strPayeesPossible = "";
 
     CAmount nReward = GetBlockValue(nBlockHeight);
+    LogPrintf("Blockreward (masternodepayt) : %i", nReward);
 
     if (IsSporkActive(SPORK_8_MASTERNODE_PAYMENT_ENFORCEMENT)) {
         // Get a stable number of masternodes by ignoring newly activated (< 8000 sec old) masternodes

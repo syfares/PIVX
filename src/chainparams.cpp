@@ -53,7 +53,7 @@ static void convertSeed6(std::vector<CAddress>& vSeedsOut, const SeedSpec6* data
 // + Contains no strange transactions
 static Checkpoints::MapCheckpoints mapCheckpoints =
     boost::assign::map_list_of
-	( 0, uint256("0x00000cd90af71c6207d4e0ed0d6e07d47fe509f0f66e18d77e9c9afd88a547cb"));
+	( 0, uint256("0x0x00000eea84b3c023b3ad56d206b8f9a57a743062c55913448248cbfd2e749dfe"));
 
 	static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
@@ -121,14 +121,14 @@ public:
 
         /** Height or Time Based Activations **/
         nLastPOWBlock = 150000;
-        nModifierUpdateBlock = 2;
-        nZerocoinStartHeight = 2;
-        nZerocoinStartTime = 2508214600; // October 17, 2017 4:30:00 AM
-        nBlockEnforceSerialRange = 2; //Enforce serial range starting this block
-        nBlockRecalculateAccumulators = 2; //Trigger a recalculation of accumulators
-        nBlockFirstFraudulent = 2; //First block that bad serials emerged
-        nBlockLastGoodCheckpoint = 0; //Last valid accumulator checkpoint
-        nBlockEnforceInvalidUTXO = 2; //Start enforcing the invalid UTXO's
+        nModifierUpdateBlock = 150000;
+        nZerocoinStartHeight = 150000;
+        nZerocoinStartTime = 6508214600; // October 17, 2017 4:30:00 AM
+        nBlockEnforceSerialRange = 150000; //Enforce serial range starting this block
+        nBlockRecalculateAccumulators = 150000; //Trigger a recalculation of accumulators
+        nBlockFirstFraudulent = 150000; //First block that bad serials emerged
+        nBlockLastGoodCheckpoint = 150000; //Last valid accumulator checkpoint
+        nBlockEnforceInvalidUTXO = 150000; //Start enforcing the invalid UTXO's
 
         /**
          * Build the genesis block. Note that the output of the genesis coinbase cannot

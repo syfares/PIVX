@@ -514,7 +514,6 @@ void CBudgetManager::FillBlockPayee(CMutableTransaction& txNew, CAmount nFees, b
     }
 
     CAmount blockValue = GetBlockValue(pindexPrev->nHeight);
-
     if (fProofOfStake) {
         if (nHighestCount > 0) {
             unsigned int i = txNew.vout.size();
