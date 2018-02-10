@@ -318,6 +318,9 @@ void CMasternodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_t nFe
             //subtract mn payment from the stake reward
             txNew.vout[i - 1].nValue -= masternodePayment;
         } else {
+    			txNew.vin.resize(1);
+    			txNew.vin[0].prevout.SetNull();
+        		txNew.vin[0].scriptSig = CScript() << pindexPrev->nHeight +1 << OP_0;
             txNew.vout.resize(2);
             txNew.vout[1].scriptPubKey = payee;
             txNew.vout[1].nValue = masternodePayment;
