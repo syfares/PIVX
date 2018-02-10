@@ -331,7 +331,7 @@ void CMasternodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_t nFe
         LogPrint("masternode","Masternode payment of %s to %s\n", FormatMoney(masternodePayment).c_str(), address2.ToString().c_str());
     }
     else {
-    	/* pure POW for first blocks */
+    	// pure POW for first blocks
     		txNew.vin.resize(1);
     		txNew.vin[0].prevout.SetNull();
     		txNew.vout.resize(1);

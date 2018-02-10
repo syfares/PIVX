@@ -187,9 +187,9 @@ QT_TRANSLATE_NOOP("barandos-core", ""
 "Unable to locate enough Obfuscation denominated funds for this transaction."),
 QT_TRANSLATE_NOOP("barandos-core", ""
 "Unable to locate enough Obfuscation non-denominated funds for this "
-"transaction that are not equal 10000 BARA."),
+"transaction that are not equal 5000 BARA."),
 QT_TRANSLATE_NOOP("barandos-core", ""
-"Unable to locate enough funds for this transaction that are not equal 10000 "
+"Unable to locate enough funds for this transaction that are not equal 5000 "
 "BARA."),
 QT_TRANSLATE_NOOP("barandos-core", ""
 "Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: "
