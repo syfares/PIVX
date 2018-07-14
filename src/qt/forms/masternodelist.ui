@@ -275,6 +275,11 @@
                     <string>Pubkey</string>
                    </property>
                   </column>
+				  <column>
+                   <property name="text">
+                    <string>Coin</string>
+                   </property>
+                  </column>
                  </widget>
                 </item>
                 <item>

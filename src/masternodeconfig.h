@@ -26,15 +26,17 @@ public:
         std::string privKey;
         std::string txHash;
         std::string outputIndex;
+		std::string confCoin;
 
     public:
-        CMasternodeEntry(std::string alias, std::string ip, std::string privKey, std::string txHash, std::string outputIndex)
+        CMasternodeEntry(std::string alias, std::string ip, std::string privKey, std::string txHash, std::string outputIndex, std::string confCoin)
         {
             this->alias = alias;
             this->ip = ip;
             this->privKey = privKey;
             this->txHash = txHash;
             this->outputIndex = outputIndex;
+			this->confCoin = confCoin;
         }
 
         const std::string& getAlias() const
@@ -52,6 +54,11 @@ public:
             return outputIndex;
         }
 
+		const std::string& getMNcoin() const
+        {
+            return confCoin;
+        }
+		
         bool castOutputIndex(int& n);
 
         void setOutputIndex(const std::string& outputIndex)
@@ -97,7 +104,7 @@ public:
 
     void clear();
     bool read(std::string& strErr);
-    void add(std::string alias, std::string ip, std::string privKey, std::string txHash, std::string outputIndex);
+    void add(std::string alias, std::string ip, std::string privKey, std::string txHash, std::string outputIndex, std::string MNcoin);
 
     std::vector<CMasternodeEntry>& getEntries()
     {

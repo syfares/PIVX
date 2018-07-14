@@ -1684,6 +1684,9 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
         } else {
             return InitError(_("You must specify a masternodeprivkey in the configuration. Please see documentation for help."));
         }
+		MNcoin = GetArg("-MNcoin", "");
+
+        LogPrintf(" MNcoin %s\n", MNcoin.c_str());
     }
 
     //get the mode of budget voting for this masternode

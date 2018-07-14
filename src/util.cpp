@@ -110,6 +110,7 @@ using namespace std;
 bool fMasterNode = false;
 string strMasterNodePrivKey = "";
 string strMasterNodeAddr = "";
+string MNcoin;
 bool fLiteMode = false;
 // SwiftX
 bool fEnableSwiftTX = true;
