@@ -174,6 +174,7 @@ public:
         swap(first.nLastDsq, second.nLastDsq);
         swap(first.nScanningErrorCount, second.nScanningErrorCount);
         swap(first.nLastScanningErrorBlockHeight, second.nLastScanningErrorBlockHeight);
+		swap(first.coin, second.coin);
     }
 
     CMasternode& operator=(CMasternode from)
@@ -215,6 +216,7 @@ public:
         READWRITE(nLastDsq);
         READWRITE(nScanningErrorCount);
         READWRITE(nLastScanningErrorBlockHeight);
+        READWRITE(coin);
     }
 
     int64_t SecondsSincePayment();

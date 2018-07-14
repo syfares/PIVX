@@ -155,6 +155,13 @@ std::string CActiveMasternode::GetStatus()
     }
 }
 
+std::string CActiveMasternode::GetMNcoin()
+{
+	return activeCoin;
+}
+	
+
+
 bool CActiveMasternode::SendMasternodePing(std::string& errorMessage)
 {
     if (status != ACTIVE_MASTERNODE_STARTED) {
@@ -279,7 +286,7 @@ bool CActiveMasternode::Register(std::string strService, std::string strKeyMaste
     }
 
     addrman.Add(CAddress(service), CNetAddr("127.0.0.1"), 2 * 60 * 60);
-
+	activeCoin = coin;
     return Register(vin, CService(strService), keyCollateralAddress, pubKeyCollateralAddress, keyMasternode, pubKeyMasternode, coin, errorMessage);
 }
 

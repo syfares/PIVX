@@ -48,6 +48,7 @@ public:
 
     int status;
     std::string notCapableReason;
+	std::string activeCoin;
 
     CActiveMasternode()
     {
@@ -57,6 +58,7 @@ public:
     /// Manage status of main Masternode
     void ManageStatus();
     std::string GetStatus();
+	std::string GetMNcoin();
 
     /// Register remote Masternode
     bool Register(std::string strService, std::string strKey, std::string strTxHash, std::string strOutputIndex,std::string coin,  std::string& errorMessage);
