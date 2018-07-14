@@ -754,6 +754,7 @@ UniValue listmasternodeconf (const UniValue& params, bool fHelp)
         mnObj.push_back(Pair("txHash", mne.getTxHash()));
         mnObj.push_back(Pair("outputIndex", mne.getOutputIndex()));
         mnObj.push_back(Pair("status", strStatus));
+		mnObj.push_back(Pair("coin", mne.getMNcoin()));
         ret.push_back(mnObj);
     }
 
